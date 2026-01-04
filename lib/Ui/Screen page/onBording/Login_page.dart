@@ -61,7 +61,7 @@ class logInPage extends StatelessWidget{
                     children: [
                       InkWell(
                         onTap: ()async{
-
+                          /// here doing login operation
                         bool check = await  DbHelper.userAuthenticate(Email: EmailControler.text, pass: PasswordControler.text);
                         if(check){
                          Navigator.push(context, MaterialPageRoute(builder: (context)=>bottomNavigationBar()));

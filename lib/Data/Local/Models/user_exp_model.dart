@@ -4,7 +4,7 @@ import 'package:new_expense/Data/Local/DB%20helper/localDataBase.dart';
 
 /// this for user model
 class userModel {
-  int user_Id;
+  int? user_Id;
   String name;
   String Email;
   String phone_Number;
@@ -12,7 +12,7 @@ class userModel {
   String createdAt;
 
   userModel({
-    this.user_Id = 0,
+    this.user_Id,
     required this.name,
     required this.Email,
     required this.phone_Number,
@@ -37,7 +37,6 @@ class userModel {
   Map<String, dynamic> toMap() {
     /// converting into map
     return {
-      DB_Helper.USER_ID: user_Id,
       DB_Helper.USER_NAME: name,
       DB_Helper.USER_EMAIL: Email,
       DB_Helper.USER_PHONENUMBER: phone_Number,

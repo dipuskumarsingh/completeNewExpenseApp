@@ -12,22 +12,22 @@ class DB_Helper{
 
   ///create the global variable
   /// this is for the user table
-  static const USER_TABLE = "user_data";
-  static const USER_ID = "user_id";
-  static const USER_NAME = "user_name";
-  static const USER_EMAIL = "user_email";
-  static const USER_PHONENUMBER = "user_phoneNumber";
-  static const USER_PASSOWRD = "user_password";
-  static const USER_CREATEDAT = "user_createdAt";
+  static final USER_TABLE = "user_data";
+  static final USER_ID = "user_id";
+  static final USER_NAME = "user_name";
+  static final USER_EMAIL = "user_email";
+  static final USER_PHONENUMBER = "user_phoneNumber";
+  static final USER_PASSOWRD = "user_password";
+  static final USER_CREATEDAT = "user_createdAt";
 
   /// this is for the Expense data table
-  static const EXP_TABLE = "Expense_data";
-  static const EXP_USER_ID = "user_id";
-  static const EXP_ID = "exp_id";
-  static const EXP_TITLE = "exp_title";
-  static const EXP_AMOUNT = "exp_amount";
-  static const EXP_BALANCE = "exp_balance";
-  static const EXP_TYPE = "exp_type";
+  static final EXP_TABLE = "Expense_data";
+  static final EXP_USER_ID = "user_id";
+  static final EXP_ID = "exp_id";
+  static final EXP_TITLE = "exp_title";
+  static final EXP_AMOUNT = "exp_amount";
+  static final EXP_BALANCE = "exp_balance";
+  static final EXP_TYPE = "exp_type";
 
 
   /// Creating getInstance
@@ -35,16 +35,17 @@ class DB_Helper{
   static DB_Helper getInstance()=>DB_Helper._();
 
   ///get data-base
-      Database? DB;
+      Database? mDB;
      Future<Database>getData_base()async{
-        return DB ??= await open_Db();
+       mDB ??= await open_Db();
+        return mDB!;
 }
 
   /// open
   Future<Database>open_Db() async{
     var appDirectory =  await getApplicationDocumentsDirectory(); /// this is used for the creating path
     String pathDirectory = join(appDirectory.path, "mainDB.db"); /// this is used for the join the path with directory.
-    return openDatabase(pathDirectory, version: 1, onCreate: (db,Verison){
+    return openDatabase(pathDirectory, version: 1, onCreate: (db,version){
 
 
       /// create
@@ -64,12 +65,8 @@ class DB_Helper{
   /// register new user
   Future<bool>userRegister({required userModel newUser})async{
        var DB = await getData_base();
-       // if(!await isUserAlreadyRegister(Email: newUser.Email, PhoneNumber: newUser.phone_Number)){
          int rowsEffected = await DB.insert(USER_TABLE, newUser.toMap());
          return rowsEffected>0;
-       // }else{
-         return false;
-       // }
   }
   /// check user already register
   Future<bool>isUserAlreadyRegister({required String Email})async{
